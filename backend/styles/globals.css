@@ -949,7 +949,7 @@ button {
     gap: 5rem;
     margin-top: 3rem;
     /* background-color: #e6e6e6; */
-    background: url('/img/profile_bg.jpg') no-repeat center center/cover;
+    background: url('/img/profile_bg.png') no-repeat center center/cover;
     border-radius: 35px;
     padding: 5rem 0;
 }

@@ -9,7 +9,7 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import useFetchData from "@/hooks/useFetchData";
 import Dataloading from "@/components/Dataloading";
 
-export default function Blog() {
+export default function Draft() {
 
     // pagination and search state
     const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +34,7 @@ export default function Blog() {
     const currentBlogs = filteredBlog.slice(indexOfFirstblog, indexOfLastblog);
 
     // filtering publish blog
-    const publishedBlogs = currentBlogs.filter(ab => ab.status === 'publish');
+    const draftBlogs = currentBlogs.filter(ab => ab.status === 'draft');
 
     // Calculate total pages
     // const totalBlogs = filteredBlog.length;
@@ -45,6 +45,7 @@ export default function Blog() {
     for (let i = 1; i <= Math.ceil(allblog / perPage); i++) {
         pageNumbers.push(i);
     }
+
 
     const { data: session, status } = useSession();
     const router = useRouter();
@@ -68,22 +69,15 @@ export default function Blog() {
             <div className="blogpage">
                 <div className="titledashboard flex flex-sb">
                     <div data-aos="fade-right">
-                        <h2>All Published <span>Blogs</span></h2>
+                        <h2>All Draft <span>Blogs</span></h2>
                         <h3>ADMIN PANEL</h3>
                     </div>
                     <div className="breadcrumb" data-aos="fade-left">
-                        <BsPostcard /> <span>/</span> <span>Blogs</span>
+                        <BsPostcard /> <span>/</span> <span>Draft Blogs</span>
                     </div>
                 </div>
 
                 <div className="blogstable" data-aos="fade-up">
-                    <div className="flex gap-2 mb-1">
-                        <h2>Search Blogs: </h2>
-                        <input type="text"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="search by title" />
-                    </div>
 
                     <table className="table table-styling">
                         <thead>
@@ -105,12 +99,12 @@ export default function Blog() {
                                 </>
                             ) : (
                                 <>
-                                    {publishedBlogs.length === 0 ? (
+                                    {draftBlogs.length === 0 ? (
                                         <tr>
-                                            <td colSpan={4} className="text-center">No Published Blog</td>
+                                            <td colSpan={4} className="text-center">No Draft Blog</td>
                                         </tr>
                                     ) : (
-                                        publishedBlogs.map((blog, index) => (
+                                        draftBlogs.map((blog, index) => (
                                             <tr key={blog._id}>
                                                 <td>{indexOfFirstblog + index + 1}</td>
                                                 <td><h3>{blog.title}</h3></td>
@@ -127,9 +121,10 @@ export default function Blog() {
                                 </>
                             )}
                         </tbody>
+
                     </table>
 
-                    {publishedBlogs.length === 0 ? (
+                    {draftBlogs.length === 0 ? (
                         ''
                     ) : (
                         <div className="blogpagination">

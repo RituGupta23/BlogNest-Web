@@ -5,7 +5,7 @@ import Aside from "@/components/Aside";
 import { SessionProvider } from "next-auth/react"
 import { useState } from "react";
 import Loading from "@/components/Loading";
-
+import Aos from "@/components/Aos";
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
 
@@ -23,7 +23,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           <Header />
           <Aside />
           <main>
-            <Component {...pageProps} />
+            <Aos>
+              <Component {...pageProps} />
+            </Aos>
+
           </main>
         </>
       )}

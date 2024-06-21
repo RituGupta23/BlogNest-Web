@@ -33,7 +33,7 @@ export default async function handle(req, res) {
         const { _id, title, slug, description, blogcategory, tags, status } = req.body;
         await Blog.updateOne({ _id }, { title, slug, description, blogcategory, tags, status });
 
-        req.json(true);
+        res.json(true);
     }
 
     // Delete Blog

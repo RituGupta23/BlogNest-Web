@@ -30,10 +30,10 @@ export default function Blog(
     async function createProduct(ev) {
         ev.preventDefault();
 
-        const data = { title, slug, description, blogcategory, tags, status};
+        const data = { title, slug, description, blogcategory, tags, status };
 
         if (_id) {
-            await axios.put('/api/blogapi', {...data, _id})
+            await axios.put('/api/blogapi', { ...data, _id })
         } else {
             await axios.post('/api/blogapi', data)
         }
@@ -93,7 +93,8 @@ export default function Blog(
                     <option value="deployment">Deployment</option>
                 </select>
                 <p className="existingcategory flex gap-1 mt-1 mb-1">
-                    selected: <span>category</span>
+                    selected: {Array.isArray(existingBlogcategory) && existingBlogcategory.map(category =>
+                        (<span>{category}</span>))}
                 </p>
             </div>
 
@@ -101,34 +102,34 @@ export default function Blog(
             <div className="description w-100 flex flex-col flex-left mb-2">
                 <label htmlFor="description">Blog Content</label>
                 <MarkdownEditor
-                
-                value={description}
-                onChange={(ev) => setDescription(ev.text)}
-                style={{width: '100%', height: '400px'}}
 
-                renderHTML={(text) => (
-                    <ReactMarkdown components={{
-                        code: ({ node, inline, className, children, ...props}) => {
-                            const match = /language-(\w+)/.exec(className || '');
-                            if(inline) {
-                                return <code>children</code>
-                            } else if (match) {
-                                return (
-                                    <div style={{ position: 'relative' }}>
-                                        <pre style={{ padding: '0', borderRadius: '5px', overflow: 'auto', whiteSpace: 'pre-wrap'}} {...props}></pre>
-                                        <code>{children}</code>
-                                        <button style={{ position: 'absolute', top: '0', right: '0', zIndex: '1' }}
-                                        onClick={() => navigator.clipboard.writeText(children)}>
-                                            copy code
-                                        </button>
-                                    </div>
-                                )
+                    value={description}
+                    onChange={(ev) => setDescription(ev.text)}
+                    style={{ width: '100%', height: '400px' }}
+
+                    renderHTML={(text) => (
+                        <ReactMarkdown components={{
+                            code: ({ node, inline, className, children, ...props }) => {
+                                const match = /language-(\w+)/.exec(className || '');
+                                if (inline) {
+                                    return <code>children</code>
+                                } else if (match) {
+                                    return (
+                                        <div style={{ position: 'relative' }}>
+                                            <pre style={{ padding: '0', borderRadius: '5px', overflow: 'auto', whiteSpace: 'pre-wrap' }} {...props}></pre>
+                                            <code>{children}</code>
+                                            <button style={{ position: 'absolute', top: '0', right: '0', zIndex: '1' }}
+                                                onClick={() => navigator.clipboard.writeText(children)}>
+                                                copy code
+                                            </button>
+                                        </div>
+                                    )
+                                }
                             }
-                        }
-                    }}>
-                        {text}
-                    </ReactMarkdown>
-                )}
+                        }}>
+                            {text}
+                        </ReactMarkdown>
+                    )}
 
                 />
             </div>
@@ -151,7 +152,8 @@ export default function Blog(
                     <option value="database">Database</option>
                 </select>
                 <p className="existingcategory flex gap-1 mt-1 mb-1">
-                    selected: <span>tags</span>
+                    selected: {Array.isArray(existingTags) && existingTags.map(tag =>
+                        (<span>{tag}</span>))}
                 </p>
             </div>
 
@@ -167,7 +169,7 @@ export default function Blog(
                     <option value="publish">Publish</option>
                 </select>
                 <p className="existingcategory flex gap-1 mt-1 mb-1">
-                    selected: <span>status</span>
+                    selected: <span>{existingStatus}</span>
                 </p>
             </div>
 
