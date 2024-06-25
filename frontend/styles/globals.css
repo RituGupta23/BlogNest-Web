@@ -702,13 +702,17 @@ button {
   color: #667eea;
 }
 
-.leftheader_info h3 {
+.leftheader_info h3, h2 {
   font-size: 1.3rem;
   font-weight: 900;
   color: #777;
 }
 
 .dark .leftheader_info h3 {
+  color: #cbd5e0;
+}
+
+.dark .leftheader_info h2 {
   color: #cbd5e0;
 }
 

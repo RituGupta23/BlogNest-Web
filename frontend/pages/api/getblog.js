@@ -17,11 +17,11 @@ export default async function handle (req, res) {
             res.json(cate.reverse()); // for recent blogs
         } else if (req.query?.tags) {
             // fetch blogs by tags
-            const tag = await Blog.find({ blogcategory: req.query.tags });
+            const tag = await Blog.find({ tags: req.query.tags });
             res.json(tag.reverse()); // for recent blogs
         } else if (req.query?.slug) {
             // fetch blogs by slug
-            const url = await Blog.find({ blogcategory: req.query.blogcategory });
+            const url = await Blog.find({ slug: req.query.slug });
             res.json(url.reverse());
         } else  {
             // fetch all blogs 

@@ -2,11 +2,15 @@ import useFetchData from "@/hooks/useFetchData";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import { FaGithub, FaHtml5, FaInstagram, FaTwitter } from "react-icons/fa6";
+import { TbBrandNextjs } from "react-icons/tb";
+import { FiDatabase } from "react-icons/fi";
+import { AiOutlineDeploymentUnit } from "react-icons/ai";
 
 export default function Home() {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 5;
+  const [perPage] = useState(10);
 
   const { alldata, loading } = useFetchData('/api/getblog');
 
@@ -90,9 +94,9 @@ export default function Home() {
                         <div className="blogtag">{blog.tags[0]}</div>
                       </Link>
                       <Link href={`/blog/${blog.slug}`}><h3>{blog.title}</h3></Link>
-                      <p>lorem csccscscscsonklncscioencjkc   gvghvhnbhbhjbhbhbh
+                      {/* <p>lorem csccscscscsonklncscioencjkc   gvghvhnbhbhjbhbhbh
                         cmcxvd,vjkdffffffffffffffffffffffffffffffffffffffffd kd
-                      </p>
+                      </p> */}
 
                       <div className="blogauthor flex gap-1">
                         <div className="blogaimg">
@@ -108,7 +112,7 @@ export default function Home() {
                 })}
               </>}
             </div>
-            <div className="pagination">
+            <div className="blogpagination">
               {publishedblogs.length === 0 ? (
                 ''
               ) : (
@@ -130,6 +134,74 @@ export default function Home() {
 
               )}
 
+            </div>
+          </div>
+
+          <div className="rightblog_info">
+            <div className="topics_sec">
+              <h2>Topics</h2>
+              <div className="topics_list">
+                <Link href='/topics/htmlcssjs'>
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                      <FaHtml5/>
+                    </div>
+                    <h3>Html, Css & JavaScript</h3>
+                  </div>
+                </Link>
+                <Link href='/topics/nextjs'>
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                    <TbBrandNextjs/>
+                    </div>
+                    <h3>Next js, React js</h3>
+                  </div>
+                </Link>
+                <Link href='/topics/database'>
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                      <FiDatabase/>
+                    </div>
+                    <h3>Database</h3>
+                  </div>
+                </Link>
+                <Link href='/topics/deployment'>
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                    <AiOutlineDeploymentUnit />
+                    </div>
+                    <h3>Deployment</h3>
+                  </div>
+                </Link>
+              </div>
+            </div>
+            <div className="tags_sec mt-3">
+              <h2>Tags</h2>
+              <div className="tags_list">
+                <Link href="/tag/html">#html</Link>
+                <Link href="/tag/css">#css</Link>
+                <Link href="/tag/javascript">#javascript</Link>
+                <Link href="/tag/nextjs">#nextjs</Link>
+                <Link href="/tag/reactjs">#reactjs</Link>
+                <Link href="/tag/database">#database</Link>
+              </div>
+            </div>
+            <div className="letstalk_sec mt-3">
+              <h2>Let's Talk</h2>
+              <div className="talk_sec">
+                <h4>Want to find out how i can solve problems specific to your business? let's talk.</h4>
+                <div className="social_talks flex flex-center gap-1 mt-2">
+                  <div className="st_icon">
+                    <FaGithub />
+                  </div>
+                  <div className="st_icon">
+                    <FaTwitter />
+                  </div>
+                  <div className="st_icon">
+                    <FaInstagram />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

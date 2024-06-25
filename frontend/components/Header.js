@@ -93,8 +93,8 @@ export default function Header() {
                 <div className="nav_list_dark">
                     <ul>
                         <li><Link href="/">Home</Link></li>
-                        <li><Link href="/">About Me</Link></li>
-                        <li><Link href="/">Contact</Link></li>
+                        <li><Link href="/about">About Me</Link></li>
+                        <li><Link href="/contact">Contact</Link></li>
                     </ul>
 
                     {/* for mobile users */}
@@ -126,12 +126,12 @@ export default function Header() {
                     </div> : <>
                         {searchQuery ? <>
                             {filteredBlogs.slice(0, 3).map((blog) => {
-                                return <div className="blog" key={blog._id}>
+                                return <Link onClick={closeSearch} className="blog" key={blog._id} href={`/blog/${blog.slug}`}>
                                     <div className="blogInfo">
-                                        <Link href={`/blog/${blog.slug}`}><h3>{blog.slug}</h3></Link>
-                                        <p>dwffffffffffffcsddvesvdsvsvxcdsvsevcxcdfsssssvvvvvvvvvvvvvvxcce</p>
+                                        <div><h3>{blog.slug}</h3></div>
+                                        {/* <p>dwffffffffffffcsddvesvdsvsvxcdsvsevcxcdfsssssvvvvvvvvvvvvvvxcce</p> */}
                                     </div>
-                                </div>
+                                </Link>
                             })}</> : <div>No Search Result</div>}
                     </>}
                 </div>
@@ -150,8 +150,8 @@ export default function Header() {
                 <h3 className="mt-3">Main Menu</h3>
                 <ul onClick={handleLinkClick}>
                     <li><Link href="/">Home</Link></li>
-                    <li><Link href="/">About Me</Link></li>
-                    <li><Link href="/">Contact</Link></li>
+                    <li><Link href="/about">About Me</Link></li>
+                    <li><Link href="/contact">Contact</Link></li>
                 </ul>
                 <hr />
                 <h3 className="mt-3">Topics</h3>
