@@ -181,19 +181,19 @@ export default function Home() {
                   <tbody>
                     <tr>
                       <td>Html, Css & Javascript</td>
-                      <td>10</td>
+                      <td>{blogsData.filter(ab => ab.status === "publish" && (ab.blogcategory || ab.blogcategory).includes("htmlcssjs")).length}</td>
                     </tr>
                     <tr>
                       <td>Next Js, React Js</td>
-                      <td>10</td>
+                      <td>{blogsData.filter(ab => ab.status === "publish" && (ab.blogcategory || ab.blogcategory).includes("nextjs")).length}</td>
                     </tr>
                     <tr>
                       <td>Database</td>
-                      <td>10</td>
+                      <td>{blogsData.filter(ab => ab.status === "publish" && (ab.blogcategory || ab.blogcategory).includes("database")).length}</td>
                     </tr>
                     <tr>
                       <td>Deployment</td>
-                      <td>10</td>
+                      <td>{blogsData.filter(ab => ab.status === "publish" && (ab.blogcategory || ab.blogcategory).includes("deployment")).length}</td>
                     </tr>
                   </tbody>
                 </table>
