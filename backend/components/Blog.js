@@ -50,7 +50,7 @@ export default function Blog(
     const handleSlugChange = (ev) => {
         const inputValue = ev.target.value;
 
-        const newSlug = inputValue.replace(/\s+/g, '-');
+        const newSlug = inputValue.replace(/\s+/g, '-'); // "/\s+/g" white shape regular expression
 
         setSlug(newSlug);
     }

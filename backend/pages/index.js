@@ -6,6 +6,7 @@ import { IoHome } from "react-icons/io5";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, LineController } from 'chart.js';
 import { Bar } from "react-chartjs-2";
 import Loading from "@/components/Loading";
+import axios from "axios";
 
 export default function Home() {
 
@@ -44,9 +45,8 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/blogapi');
-        const data = await response.json();
-        setBlogsData(data); // data is array of objects (object : each blog data)
+        const response = await axios.get('/api/blogapi');
+        setBlogsData(response.data); // data is array of objects (object : each blog data)
       } catch (error) {
         console.error('Error fetching data', error);
       }
@@ -55,7 +55,7 @@ export default function Home() {
     fetchData();
   }, [])
 
-  
+
 
   // Aggregate data by year and month
   const monthlydata = blogsData
@@ -66,6 +66,7 @@ export default function Home() {
       acc[year] = acc[year] || Array(12).fill(0); // initialise array for the year of not exists 
 
       acc[year][month]++; // increment count for the month
+      console.log(acc);
       return acc;
     }, {});
 
@@ -109,7 +110,7 @@ export default function Home() {
         <div className="dashboard">
           {/* title dashboard */}
           <div className="titledashboard flex flex-sb" >
-            <div data-aos="fade-right"> 
+            <div data-aos="fade-right">
               <h2> Blogs <span>Dashboard</span> </h2>
               <h3>ADMIN PANEL</h3>
             </div>
@@ -133,7 +134,7 @@ export default function Home() {
               <h2>Total Tags</h2>
               <span>6</span>
             </div>
-            <div className="four_card"data-aos="fade-left">
+            <div className="four_card" data-aos="fade-left">
               <h2>Draft Blogs</h2>
               <span>{blogsData.filter(ab => ab.status === 'draft').length}</span>
             </div>

@@ -24,25 +24,20 @@ export default function Draft() {
         setCurrentPage(pageNumber);
     }
 
-    const allblog = alldata.length;
+    // filtering publish blog
+    const draftBlogs = alldata.filter(ab => ab.status === 'draft');
+
 
     // search function
-    const filteredBlog = searchQuery.trim() === '' ? alldata : alldata.filter(blog => blog.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    const filteredBlog = searchQuery.trim() === '' ? draftBlogs : draftBlogs.filter(blog => blog.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const indexOfFirstblog = (currentPage - 1) * perPage;
     const indexOfLastblog = currentPage * perPage;
     const currentBlogs = filteredBlog.slice(indexOfFirstblog, indexOfLastblog);
 
-    // filtering publish blog
-    const draftBlogs = currentBlogs.filter(ab => ab.status === 'draft');
-
-    // Calculate total pages
-    // const totalBlogs = filteredBlog.length;
-    // const totalPages = Math.ceil(totalBlogs / perPage);
-
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(allblog / perPage); i++) {
+    for (let i = 1; i <= Math.ceil(draftBlogs.length / perPage); i++) {
         pageNumbers.push(i);
     }
 
@@ -104,7 +99,7 @@ export default function Draft() {
                                             <td colSpan={4} className="text-center">No Draft Blog</td>
                                         </tr>
                                     ) : (
-                                        draftBlogs.map((blog, index) => (
+                                        currentBlogs.map((blog, index) => (
                                             <tr key={blog._id}>
                                                 <td>{indexOfFirstblog + index + 1}</td>
                                                 <td><h3>{blog.title}</h3></td>

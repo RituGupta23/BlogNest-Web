@@ -23,8 +23,7 @@ export default function Blog() {
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
     }
-
-    const allblog = alldata.length;
+    
     const publishedBlogs = alldata.filter(ab => ab.status === 'publish');
 
     // search function

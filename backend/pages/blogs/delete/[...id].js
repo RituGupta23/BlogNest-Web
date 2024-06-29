@@ -55,7 +55,7 @@ export default function DeleteBlog() {
     if (session) {
         return <>
             <Head>
-                <title>Update Blog</title>
+                <title>Delete Blog</title>
             </Head>
 
             <div className="blogpage">
