@@ -25,25 +25,20 @@ export default function Blog() {
     }
 
     const allblog = alldata.length;
+    const publishedBlogs = alldata.filter(ab => ab.status === 'publish');
 
     // search function
-    const filteredBlog = searchQuery.trim() === '' ? alldata : alldata.filter(blog => blog.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    const filteredBlog = searchQuery.trim() === '' ? publishedBlogs : publishedBlogs.filter(blog => blog.title.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const indexOfFirstblog = (currentPage - 1) * perPage;
     const indexOfLastblog = currentPage * perPage;
     const currentBlogs = filteredBlog.slice(indexOfFirstblog, indexOfLastblog);
 
-    // filtering publish blog
-    const publishedBlogs = currentBlogs.filter(ab => ab.status === 'publish');
-
-    // Calculate total pages
-    // const totalBlogs = filteredBlog.length;
-    // const totalPages = Math.ceil(totalBlogs / perPage);
-
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(allblog / perPage); i++) {
+    for (let i = 1; i <= Math.ceil(publishedBlogs.length / perPage); i++) {
         pageNumbers.push(i);
+        //console.log(pageNumbers);
     }
 
     const { data: session, status } = useSession();
@@ -110,7 +105,7 @@ export default function Blog() {
                                             <td colSpan={4} className="text-center">No Published Blog</td>
                                         </tr>
                                     ) : (
-                                        publishedBlogs.map((blog, index) => (
+                                        currentBlogs.map((blog, index) => (
                                             <tr key={blog._id}>
                                                 <td>{indexOfFirstblog + index + 1}</td>
                                                 <td><h3>{blog.title}</h3></td>
