@@ -129,7 +129,6 @@ export default function Header() {
                                 return <Link onClick={closeSearch} className="blog" key={blog._id} href={`/blog/${blog.slug}`}>
                                     <div className="blogInfo">
                                         <div><h3>{blog.slug}</h3></div>
-                                        {/* <p>dwffffffffffffcsddvesvdsvsvxcdsvsevcxcdfsssssvvvvvvvvvvvvvvxcce</p> */}
                                     </div>
                                 </Link>
                             })}</> : <div>No Search Result</div>}
@@ -158,8 +157,8 @@ export default function Header() {
                 <ul onClick={handleLinkClick}>
                     <li><Link href="/topics/htmlcssjavascript">Html Css Js</Link></li>
                     <li><Link href="/topics/nextjs">Next Js</Link></li>
-                    <li><Link href="/topic/database">Database</Link></li>'
-                    <li><Link href="/topisc/deployment">Deployment</Link></li>'
+                    <li><Link href="/topic/database">Database</Link></li>
+                    <li><Link href="/topisc/deployment">Deployment</Link></li>
                 </ul>
             </div>
         </div>

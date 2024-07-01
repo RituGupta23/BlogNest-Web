@@ -141,7 +141,7 @@ export default function Blog() {
                                         {number}
                                     </button>
                                 ))}
-                            <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage}>
+                            <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage || currentPage === pageNumbers.length}>
                                 Next
                             </button>
                         </div>

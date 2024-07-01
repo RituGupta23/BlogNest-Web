@@ -7,7 +7,7 @@ export default function CategoryPage() {
 
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [perPage] = useState(6);
+    const [perPage] = useState(3);
     const [blog, setBlog] = useState([]);
     const router = useRouter();
 
@@ -19,6 +19,7 @@ export default function CategoryPage() {
             try {
                 const res = await axios.get(`/api/getblog?blogcategory=${category}`);
                 const alldata = res.data;
+                //console.log(alldata);
                 setBlog(alldata);
                 setLoading(false);
             } catch (error) {
@@ -40,20 +41,24 @@ export default function CategoryPage() {
         setCurrentPage(pageNumber);
     }
 
+    // filter publish data
+    const publishedblogs = blog.filter(ab => ab.status === 'publish');
+
+    //console.log(publishedblogs.length);
+
     const indexOfLastblog = currentPage * perPage;
     const indexOfFirstblog = indexOfLastblog - perPage;
-    const currentBlogs = blog.slice(indexOfFirstblog, indexOfLastblog);
-
-    const allblog = blog.length;
+    const currentBlogs = publishedblogs.slice(indexOfFirstblog, indexOfLastblog);
+    // console.log("Blog");
+    // console.log(blog);
+    // console.log("currentBlogs");
+    // console.log(currentBlogs);
 
     const pageNumbers = [];
 
-    for (let i = 0; i < Math.ceil(allblog / perPage); i++) {
-        pageNumbers.push(i + 1);
+    for (let i = 1; i <= Math.ceil(publishedblogs.length / perPage); i++) {
+        pageNumbers.push(i);
     }
-
-    // filter publish data
-    const publishedblogs = currentBlogs.filter(ab => ab.status === 'publish');
 
     function extractFirstImageUrl(markdownContent) {
         // check if markdowncontent is provided and non-empty
@@ -75,13 +80,9 @@ export default function CategoryPage() {
                         <div className="flex gap-1">
                             <h1>{loading
                                 ? <div>Loading...</div>
-                                : publishedblogs
-                                    ? publishedblogs && publishedblogs[0]?.blogcategory
-                                    : publishedblogs && publishedblogs.blogcategory}</h1>
-                            <span>{loading ? <div>0</div> : publishedblogs.filter(blog =>
-                                blog.blogcategory).length}</span>
+                                : category}</h1>
+                            <span>{loading ? <div>0</div> : publishedblogs.length}</span>
                         </div>
-                        <p>wdsncwklcnwklsxmc</p>
                     </div>
                     <div className="category_blogs mt-3">
                         {loading ? <>
@@ -89,7 +90,7 @@ export default function CategoryPage() {
                                 <div className="loader"></div>
                             </div>
                         </> : <>
-                            {publishedblogs.map((blog) => {
+                            {currentBlogs.map((blog) => {
                                 // in the markdown content first image show here
                                 const firstImageUrl = extractFirstImageUrl(blog.description);
                                 return <div className="cate_blog" key={blog._id}>
@@ -102,10 +103,6 @@ export default function CategoryPage() {
                                             <div className="blogtag">{blog.tags[0]}</div>
                                         </Link>
                                         <Link href={`/blog/${blog.slug}`}><h3>{blog.title}</h3></Link>
-                                        <p>lorem csccscscscsonklncscioencjkc   gvghvhnbhbhjbhbhbh
-                                            cmcxvd,vjkdffffffffffffffffffffffffffffffffffffffffd kd
-                                        </p>
-
                                         <div className="blogauthor flex gap-1">
                                             <div className="blogaimg">
                                                 <img src="/img/user.png" alt="coder" />
@@ -136,7 +133,7 @@ export default function CategoryPage() {
                                         {number}
                                     </button>
                                 ))}
-                            <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage}>Next</button>
+                            <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage || currentPage === pageNumbers.length}>Next</button>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ import { AiOutlineDeploymentUnit } from "react-icons/ai";
 export default function Home() {
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [perPage] = useState(10);
+  const [perPage] = useState(3);
 
   const { alldata, loading } = useFetchData('/api/getblog');
 
@@ -18,20 +18,17 @@ export default function Home() {
     setCurrentPage(pageNumber);
   }
 
+  // filter publish data
+  const publishedblogs = alldata.filter(ab => ab.status === 'publish');
 
   const indexOfLastblog = currentPage * perPage;
   const indexOfFirstblog = indexOfLastblog - perPage;
-  const currentBlogs = alldata.slice(indexOfFirstblog, indexOfLastblog);
-
-  const allblog = alldata.length;
-
-  // filter publish data
-  const publishedblogs = currentBlogs.filter(ab => ab.status === 'publish');
+  const currentBlogs = publishedblogs.slice(indexOfFirstblog, indexOfLastblog);
 
   const pageNumbers = [];
 
-  for (let i = 0; i < Math.ceil(allblog / perPage); i++) {
-    pageNumbers.push(i + 1);
+  for (let i = 1; i <= Math.ceil(publishedblogs.length / perPage); i++) {
+    pageNumbers.push(i);
   }
 
   function extractFirstImageUrl(markdownContent) {
@@ -80,7 +77,7 @@ export default function Home() {
               {loading ? <div className="wh_100 flex flex-center mt-2 pb-5">\
                 <div className="loader"></div>
               </div> : <>
-                {publishedblogs.map((blog) => {
+                {currentBlogs.map((blog) => {
                   // in the markdown content first image show here
                   const firstImageUrl = extractFirstImageUrl(blog.description);
                   return <div className="blog" key={blog._id}>
@@ -117,7 +114,9 @@ export default function Home() {
                 ''
               ) : (
                 <div className="blogpagination">
-                  <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+                  <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                  </button>
                   {pageNumbers
                     .slice(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pageNumbers.length))
                     .map(number => (
@@ -129,7 +128,9 @@ export default function Home() {
                         {number}
                       </button>
                     ))}
-                  <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage}>Next</button>
+                  <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage || currentPage === pageNumbers.length}>
+                    Next
+                  </button>
                 </div>
 
               )}
@@ -144,7 +145,7 @@ export default function Home() {
                 <Link href='/topics/htmlcssjs'>
                   <div className="topics">
                     <div className="flex flex-center topics_svg">
-                      <FaHtml5/>
+                      <FaHtml5 />
                     </div>
                     <h3>Html, Css & JavaScript</h3>
                   </div>
@@ -152,7 +153,7 @@ export default function Home() {
                 <Link href='/topics/nextjs'>
                   <div className="topics">
                     <div className="flex flex-center topics_svg">
-                    <TbBrandNextjs/>
+                      <TbBrandNextjs />
                     </div>
                     <h3>Next js, React js</h3>
                   </div>
@@ -160,7 +161,7 @@ export default function Home() {
                 <Link href='/topics/database'>
                   <div className="topics">
                     <div className="flex flex-center topics_svg">
-                      <FiDatabase/>
+                      <FiDatabase />
                     </div>
                     <h3>Database</h3>
                   </div>
@@ -168,7 +169,7 @@ export default function Home() {
                 <Link href='/topics/deployment'>
                   <div className="topics">
                     <div className="flex flex-center topics_svg">
-                    <AiOutlineDeploymentUnit />
+                      <AiOutlineDeploymentUnit />
                     </div>
                     <h3>Deployment</h3>
                   </div>
