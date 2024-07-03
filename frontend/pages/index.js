@@ -21,6 +21,8 @@ export default function Home() {
   // filter publish data
   const publishedblogs = alldata.filter(ab => ab.status === 'publish');
 
+  console.log(publishedblogs);
+
   const indexOfLastblog = currentPage * perPage;
   const indexOfFirstblog = indexOfLastblog - perPage;
   const currentBlogs = publishedblogs.slice(indexOfFirstblog, indexOfLastblog);
