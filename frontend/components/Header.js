@@ -155,10 +155,10 @@ export default function Header() {
                 <hr />
                 <h3 className="mt-3">Topics</h3>
                 <ul onClick={handleLinkClick}>
-                    <li><Link href="/topics/htmlcssjavascript">Html Css Js</Link></li>
+                    <li><Link href="/topics/htmlcssjs">Html Css Js</Link></li>
                     <li><Link href="/topics/nextjs">Next Js</Link></li>
-                    <li><Link href="/topic/database">Database</Link></li>
-                    <li><Link href="/topisc/deployment">Deployment</Link></li>
+                    <li><Link href="/topics/database">Database</Link></li>
+                    <li><Link href="/topics/deployment">Deployment</Link></li>
                 </ul>
             </div>
         </div>

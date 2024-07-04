@@ -82,7 +82,7 @@ export default function TagPage() {
                     </div>
                     <div className="category_blogs mt-3">
                         {loading ? <>
-                            <div className="wh-100 flex flex-center mt-2 pb-5">\
+                            <div className="wh-100 flex flex-center mt-2 pb-5">
                                 <div className="loader"></div>
                             </div>
                         </> : <>
@@ -95,7 +95,7 @@ export default function TagPage() {
                                             <img src={firstImageUrl || "/img/noimage.png"} alt={blog.title} />
                                         </Link>
 
-                                        <div className="bloginfo">
+                                        <div className="bloginfo mt-2">
                                             <Link href={`/tag/${blog.tags[0]}`}>
                                                 <div className="blogtag">{blog.tags[0]}</div>
                                             </Link>

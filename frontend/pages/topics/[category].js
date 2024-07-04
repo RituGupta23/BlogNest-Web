@@ -90,32 +90,32 @@ export default function CategoryPage() {
                                 <div className="loader"></div>
                             </div>
                         </> : <>
-                            {currentBlogs.map((blog) => {
-                                // in the markdown content first image show here
-                                const firstImageUrl = extractFirstImageUrl(blog.description);
-                                return <div className="cate_blog" key={blog._id}>
-                                    <Link href={`/blog/${blog.slug}`}>
-                                        <img src={firstImageUrl || "/img/noimage.png"} alt={blog.title} />
-                                    </Link>
-
-                                    <div className="bloginfo">
-                                        <Link href={`/tag/${blog.tags[0]}`}>
-                                            <div className="blogtag">{blog.tags[0]}</div>
+                            {publishedblogs.length === 0 ? (<h1>No blogs found</h1>) : (
+                                currentBlogs.map((blog) => {
+                                    // in the markdown content first image show here
+                                    const firstImageUrl = extractFirstImageUrl(blog.description);
+                                    return <div className="cate_blog" key={blog._id}>
+                                        <Link href={`/blog/${blog.slug}`}>
+                                            <img src={firstImageUrl || "/img/noimage.png"} alt={blog.title} />
                                         </Link>
-                                        <Link href={`/blog/${blog.slug}`}><h3>{blog.title}</h3></Link>
-                                        <div className="blogauthor flex gap-1">
-                                            <div className="blogaimg">
-                                                <img src="/img/user.png" alt="coder" />
-                                            </div>
-                                            <div className="flex flex-col flex-left gap-05">
-                                                <h4>Coder</h4>
-                                                <span>{new Date(blog.createdAt).toLocaleDateString('en-Us', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+
+                                        <div className="bloginfo mt-2">
+                                            <Link href={`/tag/${blog.tags[0]}`}>
+                                                <div className="blogtag">{blog.tags[0]}</div>
+                                            </Link>
+                                            <Link href={`/blog/${blog.slug}`}><h3>{blog.title}</h3></Link>
+                                            <div className="blogauthor flex gap-1">
+                                                <div className="blogaimg">
+                                                    <img src="/img/user.png" alt="coder" />
+                                                </div>
+                                                <div className="flex flex-col flex-left gap-05">
+                                                    <h4>Coder</h4>
+                                                    <span>{new Date(blog.createdAt).toLocaleDateString('en-Us', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                            })}
+                                }))}
                         </>}
                     </div>
 
